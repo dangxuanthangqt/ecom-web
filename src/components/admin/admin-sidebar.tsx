@@ -37,7 +37,7 @@ const ITEMS: Array<{
   { href: "/admin/users", section: "users", labelKey: "users", icon: Users },
   { href: "/admin/roles", section: "roles", labelKey: "roles", icon: ShieldCheck },
   { href: "/admin/permissions", section: "permissions", labelKey: "permissions", icon: KeyRound },
-  { href: "/admin/media", section: "media", labelKey: "media", icon: ImageIcon },
+  { href: "/admin/media", section: "media", labelKey: "media.title", icon: ImageIcon },
 ];
 
 export function AdminSidebar() {
@@ -69,7 +69,7 @@ export function AdminSidebar() {
               "flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium whitespace-nowrap transition-colors",
               active
                 ? "bg-sidebar-accent text-sidebar-accent-foreground"
-                : "text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
             )}
           >
             <Icon className="size-4" aria-hidden={true} />
@@ -80,7 +80,7 @@ export function AdminSidebar() {
 
       <Link
         href="/"
-        className="mt-auto flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium whitespace-nowrap text-sidebar-foreground/70 transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+        className="mt-auto flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium whitespace-nowrap text-sidebar-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
       >
         <Store className="size-4" aria-hidden={true} />
         {t("backToStore")}

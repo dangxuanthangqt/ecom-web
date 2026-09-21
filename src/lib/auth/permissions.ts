@@ -31,7 +31,9 @@ export const ADMIN_SECTION_PERMISSIONS = {
   users: ["user:read:any"],
   roles: ["role:read:any"],
   permissions: ["permission:read:any"],
-  media: ["media:read:any", "media:upload:own"],
+  // Not `media:upload:own`: every shopper holds that one for their avatar,
+  // and it must not be what opens the admin area.
+  media: ["media:read:any", "media:delete:any"],
 } as const satisfies Record<string, readonly PermissionKey[]>;
 
 export type AdminSection = keyof typeof ADMIN_SECTION_PERMISSIONS;

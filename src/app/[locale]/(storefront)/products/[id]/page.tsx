@@ -16,6 +16,7 @@ async function loadProduct(id: string) {
   try {
     return await apiServer<ProductDetail>(`/products/${id}`, {
       revalidate: 60,
+      tags: ["products"],
     });
   } catch (error) {
     if (error instanceof ApiError && error.statusCode === 404) return null;

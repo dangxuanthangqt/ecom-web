@@ -3,6 +3,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { apiClient } from "../client";
+import { revalidateStorefront } from "../revalidate";
 import type { ListResponse } from "../http";
 import { queryKeys } from "../query-keys";
 import type {
@@ -68,6 +69,7 @@ export function useSaveProduct() {
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ["manage-products"] });
       void queryClient.invalidateQueries({ queryKey: ["products"] });
+      void revalidateStorefront(["products"]);
     },
   });
 }
@@ -81,6 +83,7 @@ export function useDeleteProduct() {
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ["manage-products"] });
       void queryClient.invalidateQueries({ queryKey: ["products"] });
+      void revalidateStorefront(["products"]);
     },
   });
 }

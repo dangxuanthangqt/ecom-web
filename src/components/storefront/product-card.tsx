@@ -37,7 +37,8 @@ export function ProductCard({
       <div className="relative">
         <RemoteImage
           src={product.images?.[0]}
-          alt={name}
+          // Decorative: the name is rendered right beside it.
+          alt=""
           priority={priority}
           className="aspect-square w-full"
         />
@@ -52,7 +53,7 @@ export function ProductCard({
         {product.brand?.name ? (
           <p className="text-xs text-muted-foreground">{product.brand.name}</p>
         ) : null}
-        <p className="line-clamp-2 font-medium group-hover:text-primary">
+        <p className="line-clamp-2 font-medium group-hover:text-link">
           {name}
         </p>
 

@@ -79,7 +79,7 @@ export function CheckoutView({ cartItemIds }: { cartItemIds: string[] }) {
             <li key={item.id} className="flex items-center gap-3 py-3">
               <RemoteImage
                 src={item.sku.image}
-                alt={item.sku.product.name}
+                alt=""
                 sizes="64px"
                 className="size-16 shrink-0"
               />

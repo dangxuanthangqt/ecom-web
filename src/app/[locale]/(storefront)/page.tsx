@@ -32,10 +32,12 @@ export default async function HomePage({
     apiServer<ListResponse<Product>>("/products", {
       query: { pageIndex: 0, pageSize: 8, orderBy: "createdAt", order: "desc" },
       revalidate: 60,
+      tags: ["products"],
     }).catch(() => null),
     apiServer<ListResponse<BrandWithTranslations>>("/brands", {
       query: { pageIndex: 0, pageSize: 12 },
       revalidate: 300,
+      tags: ["brands"],
     }).catch(() => null),
   ]);
 
@@ -62,7 +64,8 @@ export default async function HomePage({
                 size="xl"
                 render={<Link href="/register" />}
               >
-                {t("ctaBody")}
+                {/* A label, not a sentence: buttons do not wrap. */}
+                {t("createAccount")}
               </Button>
             </div>
           </div>

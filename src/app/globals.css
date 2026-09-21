@@ -34,10 +34,17 @@
   --color-border: var(--border);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+  --color-link: var(--link);
   --color-cta: var(--cta);
   --color-cta-foreground: var(--cta-foreground);
   --color-success: var(--success);
+  --color-success-strong: var(--success-strong);
   --color-warning: var(--warning);
+  --color-warning-strong: var(--warning-strong);
+  --color-cta-strong: var(--cta-strong);
+  --color-destructive-strong: var(--destructive-strong);
+  --color-info: var(--info);
+  --color-info-strong: var(--info-strong);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
@@ -81,6 +88,13 @@
   --cta: #ea580c;
   --cta-foreground: #000000;
 
+  /*
+   * Text green. `--primary` (#059669) is a surface colour: as text on white it
+   * lands at 3.8:1 and misses AA. This darker green reads 5.5:1 on the card
+   * and 5.2:1 on the page background.
+   */
+  --link: #047857;
+
   --muted: #e8f1f3;
   --muted-foreground: #475569;
   --accent: #d1fae5;
@@ -90,6 +104,18 @@
   --destructive-foreground: #ffffff;
   --success: #059669;
   --warning: #b45309;
+  --info: #0369a1;
+
+  /*
+   * Text colours for the 10–15% tinted status chips. The chip's own hue is a
+   * surface colour there; as text on its own tint it lands near 3:1, so each
+   * one gets a darker sibling that clears 4.5:1.
+   */
+  --success-strong: #065f46;
+  --warning-strong: #92400e;
+  --destructive-strong: #b91c1c;
+  --cta-strong: #9a3412;
+  --info-strong: #075985;
 
   --border: #a7f3d0;
   --input: #cbd5e1;
@@ -127,6 +153,8 @@
   --cta: #fb923c;
   --cta-foreground: #1c1006;
 
+  --link: #34d399;
+
   --muted: #0f4436;
   --muted-foreground: #a7d5c5;
   --accent: #125243;
@@ -136,6 +164,13 @@
   --destructive-foreground: #1c0505;
   --success: #34d399;
   --warning: #fbbf24;
+  --info: #38bdf8;
+
+  --success-strong: #34d399;
+  --warning-strong: #fbbf24;
+  --destructive-strong: #fca5a5;
+  --cta-strong: #fb923c;
+  --info-strong: #7dd3fc;
 
   --border: #17604d;
   --input: #1c6d58;

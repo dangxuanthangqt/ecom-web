@@ -134,7 +134,7 @@ export function LoginForm({ nextPath }: { nextPath?: string }) {
       <div className="flex flex-wrap justify-between gap-2 text-sm">
         <Link
           href="/forgot-password"
-          className="text-primary underline underline-offset-4"
+          className="text-link underline underline-offset-4"
         >
           {t("forgotPassword")}
         </Link>
@@ -142,7 +142,7 @@ export function LoginForm({ nextPath }: { nextPath?: string }) {
           {t("noAccount")}{" "}
           <Link
             href="/register"
-            className="text-primary underline underline-offset-4"
+            className="text-link underline underline-offset-4"
           >
             {t("signUp")}
           </Link>

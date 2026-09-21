@@ -119,7 +119,7 @@ export function CartView() {
 
               <RemoteImage
                 src={item.sku.image}
-                alt={item.sku.product.name}
+                alt=""
                 sizes="96px"
                 className="size-24 shrink-0"
               />
@@ -127,7 +127,7 @@ export function CartView() {
               <div className="min-w-0 flex-1">
                 <Link
                   href={`/products/${item.sku.product.id}`}
-                  className="line-clamp-2 font-medium hover:text-primary"
+                  className="line-clamp-2 font-medium hover:text-link"
                 >
                   {item.sku.product.name}
                 </Link>

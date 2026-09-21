@@ -143,7 +143,7 @@ export function ForgotPasswordForm() {
       </form>
 
       <p className="text-center text-sm text-muted-foreground">
-        <Link href="/login" className="text-primary underline underline-offset-4">
+        <Link href="/login" className="text-link underline underline-offset-4">
           {t("signIn")}
         </Link>
       </p>

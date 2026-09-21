@@ -75,30 +75,33 @@ export function AdminDashboard() {
         <p className="text-sm text-muted-foreground">{t("overview")}</p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      {/* A definition list: each figure is the definition of its label, which
+          is what these cards actually are. */}
+      <dl className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {cards
           .filter((card) => card.visible)
           .map(({ key, icon: Icon, value, loading }) => (
             <div
               key={key}
-              className="rounded-xl border border-border bg-card p-4"
+              className="relative rounded-xl border border-border bg-card p-4"
             >
-              <div className="flex items-center justify-between">
-                <p className="text-sm text-muted-foreground">
-                  {t(`stats.${key}`)}
-                </p>
-                <Icon className="size-4 text-primary" aria-hidden={true} />
-              </div>
+              <Icon
+                className="absolute top-4 right-4 size-4 text-primary"
+                aria-hidden={true}
+              />
+              <dt className="text-sm text-muted-foreground">
+                {t(`stats.${key}`)}
+              </dt>
               {loading ? (
                 <Skeleton className="mt-2 h-8 w-16" />
               ) : (
-                <p className="mt-1 font-heading text-3xl font-bold">
+                <dd className="mt-1 font-heading text-3xl font-bold">
                   {value ?? 0}
-                </p>
+                </dd>
               )}
             </div>
           ))}
-      </div>
+      </dl>
 
       {canSee(profile, "orders") ? (
         <section className="space-y-3 rounded-xl border border-border bg-card p-4">

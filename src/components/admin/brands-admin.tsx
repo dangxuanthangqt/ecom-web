@@ -72,7 +72,9 @@ export function BrandsAdmin() {
       cell: (row) => (
         <RemoteImage
           src={row.logo}
-          alt={row.name}
+          // Decorative here: the name sits in the very next cell, so repeating
+          // it would just make a screen reader say everything twice.
+          alt=""
           sizes="40px"
           className="size-10"
         />

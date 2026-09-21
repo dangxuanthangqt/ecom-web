@@ -21,7 +21,6 @@ import { useApiErrors } from "@/lib/api/use-error-toast";
 
 export function MediaAdmin() {
   const t = useTranslations("admin.media");
-  const tAdmin = useTranslations("admin");
   const tCommon = useTranslations("common");
 
   const uploadImage = useUploadImage();
@@ -42,7 +41,7 @@ export function MediaAdmin() {
   };
 
   return (
-    <AdminPage title={tAdmin("media")}>
+    <AdminPage title={t("title")}>
       <div className="grid gap-4 lg:grid-cols-2">
         <section className="space-y-3 rounded-xl border border-border bg-card p-4">
           <h2 className="font-heading font-semibold">{t("singleUpload")}</h2>

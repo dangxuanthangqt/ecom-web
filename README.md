@@ -3,6 +3,12 @@
 Frontend cho API NestJS ở `../ecom` — storefront + trang quản trị, song ngữ VI/EN,
 phủ toàn bộ 50 endpoint của backend.
 
+## Tài liệu
+
+Bộ tài liệu đầy đủ cho người mới nằm ở [`docs/`](docs/README.md): cách chạy,
+kiến trúc, mô tả từng màn hình (storefront + admin), sơ đồ luồng, và hướng dẫn
+sử dụng từng bước.
+
 ## Stack
 
 Next.js 15 (App Router) · TypeScript · Tailwind v4 · shadcn/ui (Base UI) ·
@@ -41,6 +47,48 @@ cd ../ecom-web && pnpm exec openapi-typescript ../ecom/swagger.yaml --export-typ
 ```
 
 `src/lib/api/types.ts` là lớp alias mỏng trên file sinh tự động — sửa ở đó, không sửa `schema.ts`.
+
+## Test E2E
+
+```bash
+pnpm test:e2e            # 141 test, Playwright tự bật mock API + app đã build
+pnpm test:e2e:ui         # chế độ UI để soi từng bước
+pnpm test:e2e:report     # mở report HTML sau khi chạy
+```
+
+Mặc định suite chạy trên **mock API** (`e2e/mock-api/`) chứ không phải Nest thật:
+máy dev không phục vụ được một phiên đăng nhập (DB chưa seed, `RESEND_API_KEY`
+trống, `ADMIN_PASSWORD` ngắn hơn ràng buộc của login DTO), và test cần một thế
+giới reset được trước mỗi case. Mock bám sát `swagger.yaml`: cùng envelope list
+`{pagination, data}`, cùng envelope lỗi `{statusCode, error, message, details}`,
+cùng bearer + refresh, cùng ma trận quyền.
+
+Trỏ sang API thật:
+
+```bash
+E2E_API_URL=http://localhost:4000 E2E_BASE_URL=http://localhost:3000 pnpm test:e2e
+```
+
+Khi đó cần seed sẵn các tài khoản trong `e2e/support/accounts.ts`; nhóm test phụ
+thuộc đăng nhập sẽ đỏ nếu thiếu.
+
+| File | Phủ |
+|---|---|
+| `smoke.spec.ts` | routing, redirect locale, `lang`, chuyển ngôn ngữ giữ nguyên trang |
+| `storefront-products.spec.ts` | list, search, lọc brand/giá, sort, empty, chi tiết, gallery, i18n nội dung |
+| `reviews.spec.ts` | đọc/viết/sửa/xoá, quyền sở hữu |
+| `cart-checkout.spec.ts` | thêm/sửa/xoá, chọn dòng, đặt hàng, trần tồn kho |
+| `orders.spec.ts` | danh sách, lọc, chi tiết, huỷ + xác nhận |
+| `account.spec.ts` | hồ sơ, đổi mật khẩu, bật/tắt 2FA |
+| `auth.spec.ts` | login (2FA), register + OTP, quên mật khẩu, logout, Google |
+| `admin-access.spec.ts` | chặn theo quyền, sidebar theo role, dashboard |
+| `admin-catalog.spec.ts` | brands, categories, languages CRUD |
+| `admin-products.spec.ts` | product CRUD, sinh SKU từ phân loại, cache busting |
+| `admin-people.spec.ts` | users, roles, permissions |
+| `admin-operations.spec.ts` | đổi trạng thái đơn, bản dịch, media |
+| `security.spec.ts` | cookie httpOnly, chặn proxy token endpoint, refresh-on-401 |
+| `a11y.spec.ts` | axe WCAG 2.1 AA trên 12 trang, focus, reduced motion |
+| `responsive.spec.ts` | 375px: không tràn ngang, drawer, target size |
 
 ## Cấu trúc
 

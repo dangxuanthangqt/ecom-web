@@ -21,7 +21,9 @@ export function CartBadge() {
       variant="ghost"
       size="sm"
       className="relative"
-      aria-label={t("cart")}
+      // The badge count belongs in the accessible name; a screen reader
+      // should not have to guess how full the cart is.
+      aria-label={count > 0 ? `${t("cart")}: ${count}` : t("cart")}
       render={<Link href="/cart" />}
     >
       <ShoppingCart aria-hidden="true" />

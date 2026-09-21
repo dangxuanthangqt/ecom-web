@@ -37,7 +37,9 @@ export function LocaleSwitcher() {
             variant="ghost"
             size="sm"
             disabled={isPending}
-            aria-label={t("language")}
+            // WCAG 2.5.3: the visible label has to be part of the
+            // accessible name, and the current language is worth announcing.
+            aria-label={`${t("language")}: ${LABEL[locale]}`}
           >
             <Languages aria-hidden="true" />
             <span className="hidden sm:inline">{LABEL[locale]}</span>

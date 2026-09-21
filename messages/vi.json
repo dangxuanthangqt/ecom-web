@@ -60,7 +60,8 @@
     "whySupport": "Hỗ trợ thật",
     "whySupportBody": "Nói chuyện với người thật, không phải kịch bản.",
     "ctaTitle": "Sẵn sàng tìm món tiếp theo chưa?",
-    "ctaBody": "Tạo tài khoản để giỏ hàng theo bạn trên mọi thiết bị."
+    "ctaBody": "Tạo tài khoản để giỏ hàng theo bạn trên mọi thiết bị.",
+    "createAccount": "Tạo tài khoản"
   },
   "products": {
     "title": "Sản phẩm",
@@ -83,7 +84,10 @@
       "virtualPrice": "Giá niêm yết",
       "sale": "Giảm nhiều nhất"
     },
-    "order": { "asc": "Tăng dần", "desc": "Giảm dần" },
+    "order": {
+      "asc": "Tăng dần",
+      "desc": "Giảm dần"
+    },
     "empty": "Không có sản phẩm nào khớp bộ lọc.",
     "outOfStock": "Hết hàng",
     "inStock": "Còn {count}",
@@ -95,7 +99,8 @@
     "specs": "Phân loại",
     "selectVariant": "Chọn đủ mỗi phân loại một tuỳ chọn",
     "added": "Đã thêm vào giỏ",
-    "relatedBrand": "Thêm từ {brand}"
+    "relatedBrand": "Thêm từ {brand}",
+    "sortDirection": "Thứ tự"
   },
   "reviews": {
     "title": "Đánh giá",
@@ -228,7 +233,22 @@
     "permissions": "Quyền",
     "languages": "Ngôn ngữ",
     "translations": "Bản dịch",
-    "media": "Tệp media",
+    "media": {
+      "title": "Tệp media",
+      "singleUpload": "Tải lên một ảnh",
+      "arrayUpload": "Tải lên tối đa 10 ảnh",
+      "multipleUpload": "Tải lên theo field",
+      "presigned": "Lấy presigned URL",
+      "key": "Object key",
+      "type": "Content type",
+      "getUrl": "Lấy URL",
+      "deleteObject": "Xoá object",
+      "deleted": "Đã xoá object",
+      "uploaded": "Tải lên xong",
+      "dropHint": "PNG hoặc JPEG, mỗi tệp tối đa 5 MB.",
+      "copy": "Chép URL",
+      "copied": "Đã chép URL"
+    },
     "backToStore": "Về cửa hàng",
     "noPermission": "Vai trò của bạn không có quyền vào khu vực này.",
     "stats": {
@@ -347,22 +367,6 @@
       "statusUpdated": "Đã đổi trạng thái đơn",
       "customer": "Khách hàng",
       "filterStatus": "Lọc theo trạng thái"
-    },
-    "media": {
-      "title": "Tệp media",
-      "singleUpload": "Tải lên một ảnh",
-      "arrayUpload": "Tải lên tối đa 10 ảnh",
-      "multipleUpload": "Tải lên theo field",
-      "presigned": "Lấy presigned URL",
-      "key": "Object key",
-      "type": "Content type",
-      "getUrl": "Lấy URL",
-      "deleteObject": "Xoá object",
-      "deleted": "Đã xoá object",
-      "uploaded": "Tải lên xong",
-      "dropHint": "PNG hoặc JPEG, mỗi tệp tối đa 5 MB.",
-      "copy": "Chép URL",
-      "copied": "Đã chép URL"
     }
   },
   "validation": {

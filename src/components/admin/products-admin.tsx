@@ -136,7 +136,9 @@ export function ProductsAdmin() {
       cell: (row) => (
         <RemoteImage
           src={row.images?.[0]}
-          alt={row.name}
+          // Decorative here: the name sits in the very next cell, so repeating
+          // it would just make a screen reader say everything twice.
+          alt=""
           sizes="40px"
           className="size-10"
         />

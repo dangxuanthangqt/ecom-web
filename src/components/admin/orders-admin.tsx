@@ -62,7 +62,7 @@ export function OrdersAdmin() {
         <button
           type="button"
           onClick={() => setDetailId(row.id)}
-          className="font-mono text-xs text-primary underline underline-offset-4"
+          className="font-mono text-xs text-link underline underline-offset-4"
         >
           {shortId(row.id)}
         </button>
@@ -174,7 +174,7 @@ export function OrdersAdmin() {
                 <li key={item.id} className="flex items-center gap-3 py-3">
                   <RemoteImage
                     src={item.images?.[0]}
-                    alt={item.productName}
+                    alt=""
                     sizes="48px"
                     className="size-12 shrink-0"
                   />

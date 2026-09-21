@@ -60,7 +60,8 @@
     "whySupport": "Real support",
     "whySupportBody": "Talk to a human, not a script.",
     "ctaTitle": "Ready to find your next favourite thing?",
-    "ctaBody": "Create an account and keep your cart across every device."
+    "ctaBody": "Create an account and keep your cart across every device.",
+    "createAccount": "Create an account"
   },
   "products": {
     "title": "Products",
@@ -83,7 +84,10 @@
       "virtualPrice": "Listed price",
       "sale": "Best discount"
     },
-    "order": { "asc": "Ascending", "desc": "Descending" },
+    "order": {
+      "asc": "Ascending",
+      "desc": "Descending"
+    },
     "empty": "No product matches those filters.",
     "outOfStock": "Out of stock",
     "inStock": "{count} in stock",
@@ -95,7 +99,8 @@
     "specs": "Variants",
     "selectVariant": "Pick an option for every variant",
     "added": "Added to cart",
-    "relatedBrand": "More from {brand}"
+    "relatedBrand": "More from {brand}",
+    "sortDirection": "Sort direction"
   },
   "reviews": {
     "title": "Reviews",
@@ -228,7 +233,22 @@
     "permissions": "Permissions",
     "languages": "Languages",
     "translations": "Translations",
-    "media": "Media",
+    "media": {
+      "title": "Media",
+      "singleUpload": "Upload one image",
+      "arrayUpload": "Upload up to 10 images",
+      "multipleUpload": "Upload by field",
+      "presigned": "Get a presigned URL",
+      "key": "Object key",
+      "type": "Content type",
+      "getUrl": "Get URL",
+      "deleteObject": "Delete object",
+      "deleted": "Object deleted",
+      "uploaded": "Upload finished",
+      "dropHint": "PNG or JPEG, up to 5 MB each.",
+      "copy": "Copy URL",
+      "copied": "URL copied"
+    },
     "backToStore": "Back to store",
     "noPermission": "Your role does not grant access to this area.",
     "stats": {
@@ -347,22 +367,6 @@
       "statusUpdated": "Order status updated",
       "customer": "Customer",
       "filterStatus": "Filter by status"
-    },
-    "media": {
-      "title": "Media",
-      "singleUpload": "Upload one image",
-      "arrayUpload": "Upload up to 10 images",
-      "multipleUpload": "Upload by field",
-      "presigned": "Get a presigned URL",
-      "key": "Object key",
-      "type": "Content type",
-      "getUrl": "Get URL",
-      "deleteObject": "Delete object",
-      "deleted": "Object deleted",
-      "uploaded": "Upload finished",
-      "dropHint": "PNG or JPEG, up to 5 MB each.",
-      "copy": "Copy URL",
-      "copied": "URL copied"
     }
   },
   "validation": {

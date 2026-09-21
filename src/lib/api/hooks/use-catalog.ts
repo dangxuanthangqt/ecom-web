@@ -3,6 +3,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { apiClient } from "../client";
+import { revalidateStorefront } from "../revalidate";
 import type { ListResponse } from "../http";
 import { queryKeys } from "../query-keys";
 import type {
@@ -38,8 +39,10 @@ export function useSaveBrand() {
       id
         ? apiClient.put(`/brands/${id}`, { body })
         : apiClient.post("/brands", { body }),
-    onSuccess: () =>
-      void queryClient.invalidateQueries({ queryKey: ["brands"] }),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ["brands"] });
+      void revalidateStorefront(["brands", "products"]);
+    },
   });
 }
 
@@ -50,13 +53,19 @@ export function useDeleteBrand() {
     // The API takes an optional `isHardDelete`; the UI only ever soft-deletes.
     mutationFn: (id: string) =>
       apiClient.delete(`/brands/${id}`, { body: { isHardDelete: false } }),
-    onSuccess: () =>
-      void queryClient.invalidateQueries({ queryKey: ["brands"] }),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ["brands"] });
+      void revalidateStorefront(["brands", "products"]);
+    },
   });
 }
 
-/** `/categories` is not paginated — it answers with the whole tree. */
-export function useCategories(parentCategoryId?: string) {
+/**
+ * `/categories` is not paginated — it answers with the whole tree. It also
+ * needs `category:read:any`, so callers without it pass `enabled: false`
+ * rather than firing a request that can only 403.
+ */
+export function useCategories(parentCategoryId?: string, enabled = true) {
   return useQuery({
     queryKey: queryKeys.categories(parentCategoryId),
     queryFn: () =>
@@ -64,6 +73,7 @@ export function useCategories(parentCategoryId?: string) {
         "/categories",
         { query: { parentCategoryId } },
       ),
+    enabled,
   });
 }
 
@@ -83,8 +93,10 @@ export function useSaveCategory() {
       id
         ? apiClient.put(`/categories/${id}`, { body })
         : apiClient.post("/categories", { body }),
-    onSuccess: () =>
-      void queryClient.invalidateQueries({ queryKey: ["categories"] }),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ["categories"] });
+      void revalidateStorefront(["categories", "products"]);
+    },
   });
 }
 
@@ -93,8 +105,10 @@ export function useDeleteCategory() {
 
   return useMutation({
     mutationFn: (id: string) => apiClient.delete(`/categories/${id}`),
-    onSuccess: () =>
-      void queryClient.invalidateQueries({ queryKey: ["categories"] }),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ["categories"] });
+      void revalidateStorefront(["categories", "products"]);
+    },
   });
 }
 

@@ -13,12 +13,11 @@ import {
   useEnableTwoFactor,
   useSendOtp,
 } from "@/lib/api/hooks/use-account";
-import { ApiError } from "@/lib/api/http";
+import { useApiErrors } from "@/lib/api/use-error-toast";
 
 export function TwoFactorPanel({ email }: { email: string }) {
   const t = useTranslations("account");
   const tAuth = useTranslations("auth");
-  const tCommon = useTranslations("common");
 
   const enable = useEnableTwoFactor();
   const disable = useDisableTwoFactor();
@@ -29,11 +28,9 @@ export function TwoFactorPanel({ email }: { email: string }) {
   );
   const [totpCode, setTotpCode] = useState("");
   const [code, setCode] = useState("");
-
-  const fail = (error: unknown) =>
-    toast.error(
-      error instanceof ApiError ? error.message : tCommon("unexpectedError"),
-    );
+  // Same treatment as every other form: the summary goes to a toast, the
+  // per-field detail sits under the field that caused it.
+  const { errors, report, reset } = useApiErrors();
 
   return (
     <section className="space-y-4 rounded-xl border border-border bg-card p-5">
@@ -51,7 +48,7 @@ export function TwoFactorPanel({ email }: { email: string }) {
               setSecret(await enable.mutateAsync());
               toast.success(t("twoFactorEnabled"));
             } catch (error) {
-              fail(error);
+              report(error);
             }
           }}
         >
@@ -66,7 +63,7 @@ export function TwoFactorPanel({ email }: { email: string }) {
               await sendOtp.mutateAsync({ email, type: "DISABLE_2FA" });
               toast.success(tAuth("otpSent"));
             } catch (error) {
-              fail(error);
+              report(error);
             }
           }}
         >
@@ -82,7 +79,7 @@ export function TwoFactorPanel({ email }: { email: string }) {
           </p>
           <a
             href={secret.uri}
-            className="text-primary underline underline-offset-4"
+            className="text-link underline underline-offset-4"
           >
             {secret.uri}
           </a>
@@ -93,6 +90,7 @@ export function TwoFactorPanel({ email }: { email: string }) {
         className="space-y-3 border-t border-border pt-4"
         onSubmit={async (event) => {
           event.preventDefault();
+          reset();
 
           try {
             await disable.mutateAsync({
@@ -103,14 +101,14 @@ export function TwoFactorPanel({ email }: { email: string }) {
             setTotpCode("");
             setCode("");
           } catch (error) {
-            fail(error);
+            report(error);
           }
         }}
       >
         <p className="text-sm text-muted-foreground">{t("disableHint")}</p>
 
         <div className="grid gap-3 sm:grid-cols-2">
-          <Field id="totpCode" label={tAuth("totpCode")}>
+          <Field id="totpCode" label={tAuth("totpCode")} error={errors.totpCode}>
             <Input
               id="totpCode"
               inputMode="numeric"
@@ -120,7 +118,7 @@ export function TwoFactorPanel({ email }: { email: string }) {
             />
           </Field>
 
-          <Field id="otpCode" label={tAuth("otpCode")}>
+          <Field id="otpCode" label={tAuth("otpCode")} error={errors.code}>
             <Input
               id="otpCode"
               inputMode="numeric"

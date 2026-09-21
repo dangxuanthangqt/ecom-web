@@ -140,7 +140,7 @@ export function ProductReviews({ productId }: { productId: string }) {
         </form>
       ) : (
         <p className="text-sm text-muted-foreground">
-          <Link href="/login" className="text-primary underline">
+          <Link href="/login" className="text-link underline">
             {t("signInToReview")}
           </Link>
         </p>

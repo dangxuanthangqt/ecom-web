@@ -74,7 +74,7 @@ export function OrderDetailView({ orderId }: { orderId: string }) {
           <li key={item.id} className="flex items-center gap-3 py-3">
             <RemoteImage
               src={item.images?.[0]}
-              alt={item.productName}
+              alt=""
               sizes="64px"
               className="size-16 shrink-0"
             />

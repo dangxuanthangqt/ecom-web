@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useBrands, useCategories } from "@/lib/api/hooks/use-catalog";
 import type { ProductQuery, ProductSortField, SortOrder } from "@/lib/api/types";
+import { hasPermission } from "@/lib/auth/permissions";
 
 const SORT_FIELDS: ProductSortField[] = [
   "createdAt",
@@ -33,11 +34,13 @@ export function ProductFilters({
   onReset: () => void;
 }) {
   const t = useTranslations("products");
-  const { isAuthenticated } = useSession();
+  const { profile } = useSession();
   const { data: brands } = useBrands({ pageIndex: 0, pageSize: 100 });
-  // `/categories` sits behind auth on this API, so the filter only appears
-  // once there is a session to ask with.
-  const { data: categories } = useCategories();
+  // `/categories` needs `category:read:any` on this API — a plain shopper gets
+  // a 403 — so the filter is gated on the permission, not on merely being
+  // signed in, and the request only fires for someone who may make it.
+  const canReadCategories = hasPermission(profile, "category:read:any");
+  const { data: categories } = useCategories(undefined, canReadCategories);
   const [open, setOpen] = useState(false);
 
   const toggle = (key: "brandIds" | "categoryIds", id: string) => {
@@ -83,7 +86,7 @@ export function ProductFilters({
             }))}
           />
           <NativeSelect
-            aria-label={t("sortBy")}
+            aria-label={t("sortDirection")}
             value={value.order ?? "desc"}
             onChange={(event) =>
               onChange({
@@ -159,7 +162,7 @@ export function ProductFilters({
           </fieldset>
         ) : null}
 
-        {isAuthenticated && categories?.data.length ? (
+        {canReadCategories && categories?.data.length ? (
           <fieldset className="space-y-2">
             <legend className="text-sm font-semibold">{t("category")}</legend>
             <ul className="max-h-56 space-y-1.5 overflow-y-auto pr-1">

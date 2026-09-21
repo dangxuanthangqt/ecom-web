@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -63,7 +64,13 @@ export function UserMenu() {
     <DropdownMenu>
       <DropdownMenuTrigger
         render={
-          <Button variant="ghost" size="sm" aria-label={t("account")}>
+          <Button
+            variant="ghost"
+            size="sm"
+            // WCAG 2.5.3: the name on screen has to be part of the accessible
+            // name, otherwise voice control cannot target this button.
+            aria-label={`${t("account")}: ${profile.name}`}
+          >
             <User aria-hidden="true" />
             <span className="hidden max-w-28 truncate md:inline">
               {profile.name}
@@ -72,9 +79,12 @@ export function UserMenu() {
         }
       />
       <DropdownMenuContent align="end" className="w-52">
-        <DropdownMenuLabel className="truncate">
-          {profile.email}
-        </DropdownMenuLabel>
+        {/* Base UI requires a group around a group label. */}
+        <DropdownMenuGroup>
+          <DropdownMenuLabel className="truncate">
+            {profile.email}
+          </DropdownMenuLabel>
+        </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem render={<Link href="/account" />}>
           <User aria-hidden="true" />

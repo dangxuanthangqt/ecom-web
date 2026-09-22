@@ -3,9 +3,8 @@
 import { ShoppingCart } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+import { ButtonLink } from "@/components/common/button-link";
 import { useSession } from "@/components/providers/session-provider";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
 import { useCart } from "@/lib/api/hooks/use-cart";
 
 export function CartBadge() {
@@ -17,14 +16,14 @@ export function CartBadge() {
   const count = data?.data.length ?? 0;
 
   return (
-    <Button
+    <ButtonLink
       variant="ghost"
       size="sm"
       className="relative"
       // The badge count belongs in the accessible name; a screen reader
       // should not have to guess how full the cart is.
       aria-label={count > 0 ? `${t("cart")}: ${count}` : t("cart")}
-      render={<Link href="/cart" />}
+      href="/cart"
     >
       <ShoppingCart aria-hidden="true" />
       <span className="hidden sm:inline">{t("cart")}</span>
@@ -33,6 +32,6 @@ export function CartBadge() {
           {count}
         </span>
       ) : null}
-    </Button>
+    </ButtonLink>
   );
 }

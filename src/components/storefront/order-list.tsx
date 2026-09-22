@@ -3,11 +3,11 @@
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 
+import { ButtonLink } from "@/components/common/button-link";
 import { NativeSelect } from "@/components/common/native-select";
 import { OrderStatusBadge } from "@/components/common/order-status-badge";
 import { PaginationBar } from "@/components/common/pagination-bar";
 import { EmptyState, RowsSkeleton } from "@/components/common/states";
-import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { useOrders } from "@/lib/api/hooks/use-orders";
@@ -61,9 +61,9 @@ export function OrderList() {
         <EmptyState
           title={t("empty")}
           action={
-            <Button variant="cta" render={<Link href="/products" />}>
+            <ButtonLink variant="cta" href="/products">
               {tCommon("view")}
-            </Button>
+            </ButtonLink>
           }
         />
       ) : null}

@@ -4,8 +4,8 @@ import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
-import { Button } from "@/components/ui/button";
-import { Link, useRouter } from "@/i18n/navigation";
+import { ButtonLink } from "@/components/common/button-link";
+import { useRouter } from "@/i18n/navigation";
 
 export function GoogleCallback({
   accessToken,
@@ -57,9 +57,9 @@ export function GoogleCallback({
         <p className="font-heading text-lg font-semibold">
           {t("googleFailed")}
         </p>
-        <Button variant="cta" render={<Link href="/login" />}>
+        <ButtonLink variant="cta" href="/login">
           {t("signIn")}
-        </Button>
+        </ButtonLink>
       </div>
     );
   }

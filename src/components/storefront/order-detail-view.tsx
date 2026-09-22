@@ -4,12 +4,12 @@ import { ArrowLeft } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 
+import { ButtonLink } from "@/components/common/button-link";
 import { ConfirmButton } from "@/components/common/confirm-button";
 import { OrderStatusBadge } from "@/components/common/order-status-badge";
 import { RemoteImage } from "@/components/common/remote-image";
 import { ErrorState, RowsSkeleton } from "@/components/common/states";
 import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { useCancelOrder, useOrder } from "@/lib/api/hooks/use-orders";
 import { useApiErrorMessage } from "@/lib/api/use-error-toast";
@@ -53,10 +53,10 @@ export function OrderDetailView({ orderId }: { orderId: string }) {
 
   return (
     <div className="mx-auto max-w-3xl space-y-6 px-4 py-10">
-      <Button variant="ghost" size="sm" render={<Link href="/orders" />}>
+      <ButtonLink variant="ghost" size="sm" href="/orders">
         <ArrowLeft aria-hidden="true" />
         {tCommon("back")}
-      </Button>
+      </ButtonLink>
 
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>

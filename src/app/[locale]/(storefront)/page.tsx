@@ -7,9 +7,9 @@ import {
 } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
+import { ButtonLink } from "@/components/common/button-link";
 import { ProductCard } from "@/components/storefront/product-card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { apiServer } from "@/lib/api/server";
 import type { ListResponse } from "@/lib/api/http";
@@ -30,12 +30,12 @@ export default async function HomePage({
   // page renders for signed-out visitors too.
   const [products, brands] = await Promise.all([
     apiServer<ListResponse<Product>>("/products", {
-      query: { pageIndex: 0, pageSize: 8, orderBy: "createdAt", order: "desc" },
+      query: { page: 1, pageSize: 8, orderBy: "createdAt", order: "desc" },
       revalidate: 60,
       tags: ["products"],
     }).catch(() => null),
     apiServer<ListResponse<BrandWithTranslations>>("/brands", {
-      query: { pageIndex: 0, pageSize: 12 },
+      query: { page: 1, pageSize: 12 },
       revalidate: 300,
       tags: ["brands"],
     }).catch(() => null),
@@ -56,17 +56,13 @@ export default async function HomePage({
               {t("heroSubtitle")}
             </p>
             <div className="flex flex-wrap gap-3">
-              <Button variant="cta" size="xl" render={<Link href="/products" />}>
+              <ButtonLink variant="cta" size="xl" href="/products">
                 {t("shopNow")}
-              </Button>
-              <Button
-                variant="outline"
-                size="xl"
-                render={<Link href="/register" />}
-              >
+              </ButtonLink>
+              <ButtonLink variant="outline" size="xl" href="/register">
                 {/* A label, not a sentence: buttons do not wrap. */}
                 {t("createAccount")}
-              </Button>
+              </ButtonLink>
             </div>
           </div>
 
@@ -110,9 +106,9 @@ export default async function HomePage({
               {t("featuredSubtitle")}
             </p>
           </div>
-          <Button variant="outline" render={<Link href="/products" />}>
+          <ButtonLink variant="outline" href="/products">
             {t("browseAll")}
-          </Button>
+          </ButtonLink>
         </div>
 
         {products?.data.length ? (
@@ -157,9 +153,9 @@ export default async function HomePage({
             {t("ctaTitle")}
           </h2>
           <p className="max-w-prose text-muted-foreground">{t("ctaBody")}</p>
-          <Button variant="cta" size="xl" render={<Link href="/register" />}>
+          <ButtonLink variant="cta" size="xl" href="/register">
             {t("shopNow")}
-          </Button>
+          </ButtonLink>
         </div>
       </section>
     </>

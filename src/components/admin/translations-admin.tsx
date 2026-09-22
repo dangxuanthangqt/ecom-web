@@ -31,21 +31,21 @@ export function TranslationsAdmin() {
   const tCommon = useTranslations("common");
 
   const [kind, setKind] = useState<TranslationKind>("brand");
-  const [pageIndex, setPageIndex] = useState(0);
+  const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
   const [keyword, setKeyword] = useState("");
   const [editing, setEditing] = useState<Translation | null>(null);
   const [open, setOpen] = useState(false);
 
   const { data, isPending } = useTranslationRows(kind, {
-    pageIndex,
+    page,
     pageSize,
     keyword: keyword || undefined,
   });
   const { data: languages } = useLanguages();
-  const { data: brands } = useBrands({ pageIndex: 0, pageSize: 100 });
+  const { data: brands } = useBrands({ page: 1, pageSize: 100 });
   const { data: categories } = useCategories();
-  const { data: products } = useManagedProducts({ pageIndex: 0, pageSize: 100 });
+  const { data: products } = useManagedProducts({ page: 1, pageSize: 100 });
 
   const saveTranslation = useSaveTranslation(kind);
   const deleteTranslation = useDeleteTranslation(kind);
@@ -148,7 +148,7 @@ export function TranslationsAdmin() {
       keyword={keyword}
       onKeywordChange={(value) => {
         setKeyword(value);
-        setPageIndex(0);
+        setPage(1);
       }}
       action={
         <Button
@@ -172,7 +172,7 @@ export function TranslationsAdmin() {
             aria-selected={kind === tab.value}
             onClick={() => {
               setKind(tab.value);
-              setPageIndex(0);
+              setPage(1);
             }}
             className={cn(
               "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
@@ -194,14 +194,14 @@ export function TranslationsAdmin() {
 
       {data ? (
         <PaginationBar
-          pageIndex={data.pagination.pageIndex}
+          page={data.pagination.page}
           pageSize={data.pagination.pageSize}
           totalPages={data.pagination.totalPages}
           totalItems={data.pagination.totalItems}
-          onPageChange={setPageIndex}
+          onPageChange={setPage}
           onPageSizeChange={(size) => {
             setPageSize(size);
-            setPageIndex(0);
+            setPage(1);
           }}
         />
       ) : null}

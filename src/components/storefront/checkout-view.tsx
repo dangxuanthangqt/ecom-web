@@ -3,10 +3,11 @@
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 
+import { ButtonLink } from "@/components/common/button-link";
 import { RemoteImage } from "@/components/common/remote-image";
 import { EmptyState, RowsSkeleton } from "@/components/common/states";
 import { Button } from "@/components/ui/button";
-import { Link, useRouter } from "@/i18n/navigation";
+import { useRouter } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { useCart } from "@/lib/api/hooks/use-cart";
 import { useCreateOrder } from "@/lib/api/hooks/use-orders";
@@ -45,9 +46,9 @@ export function CheckoutView({ cartItemIds }: { cartItemIds: string[] }) {
         <EmptyState
           title={t("nothingSelected")}
           action={
-            <Button variant="cta" render={<Link href="/cart" />}>
+            <ButtonLink variant="cta" href="/cart">
               {tCart("title")}
-            </Button>
+            </ButtonLink>
           }
         />
       </div>

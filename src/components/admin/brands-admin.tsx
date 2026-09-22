@@ -28,14 +28,14 @@ export function BrandsAdmin() {
   const tTable = useTranslations("admin.table");
   const tAdmin = useTranslations("admin");
   const tCommon = useTranslations("common");
-  const [pageIndex, setPageIndex] = useState(0);
+  const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
   const [keyword, setKeyword] = useState("");
   const [editing, setEditing] = useState<BrandWithTranslations | null>(null);
   const [open, setOpen] = useState(false);
 
   const { data, isPending } = useBrands({
-    pageIndex,
+    page,
     pageSize,
     keyword: keyword || undefined,
   });
@@ -121,7 +121,7 @@ export function BrandsAdmin() {
       keyword={keyword}
       onKeywordChange={(value) => {
         setKeyword(value);
-        setPageIndex(0);
+        setPage(1);
       }}
       action={
         <Button
@@ -144,14 +144,14 @@ export function BrandsAdmin() {
 
       {data ? (
         <PaginationBar
-          pageIndex={data.pagination.pageIndex}
+          page={data.pagination.page}
           pageSize={data.pagination.pageSize}
           totalPages={data.pagination.totalPages}
           totalItems={data.pagination.totalItems}
-          onPageChange={setPageIndex}
+          onPageChange={setPage}
           onPageSizeChange={(size) => {
             setPageSize(size);
-            setPageIndex(0);
+            setPage(1);
           }}
         />
       ) : null}

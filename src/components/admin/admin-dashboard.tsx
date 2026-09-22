@@ -15,7 +15,7 @@ import { ORDER_STATUSES } from "@/lib/api/types";
 import { canSee } from "@/lib/auth/permissions";
 
 /** One row is enough — only `pagination.totalItems` is being read. */
-const COUNT_ONLY = { pageIndex: 0, pageSize: 1 };
+const COUNT_ONLY = { page: 1, pageSize: 1 };
 
 export function AdminDashboard() {
   const t = useTranslations("admin");

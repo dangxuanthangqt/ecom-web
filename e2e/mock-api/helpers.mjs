@@ -45,15 +45,15 @@ export function notFound(res, message = "Resource not found.") {
 /** `{ pagination, data }` — the list envelope every collection endpoint uses. */
 export function page(res, rows, query) {
   const pageSize = Number(query.get("pageSize") ?? 20) || 20;
-  const pageIndex = Number(query.get("pageIndex") ?? 0) || 0;
-  const start = pageIndex * pageSize;
+  const pageNumber = Number(query.get("page") ?? 1) || 1;
+  const start = (pageNumber - 1) * pageSize;
 
   json(res, 200, {
     pagination: {
       totalItems: rows.length,
       totalPages: Math.max(Math.ceil(rows.length / pageSize), 1),
       pageSize,
-      pageIndex,
+      page: pageNumber,
     },
     data: rows.slice(start, start + pageSize),
   });

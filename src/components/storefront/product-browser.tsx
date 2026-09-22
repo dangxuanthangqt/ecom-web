@@ -13,7 +13,7 @@ import { useProducts } from "@/lib/api/hooks/use-products";
 import type { ProductQuery } from "@/lib/api/types";
 
 const DEFAULT_QUERY: ProductQuery = {
-  pageIndex: 0,
+  page: 1,
   pageSize: 20,
   orderBy: "createdAt",
   order: "desc",
@@ -56,7 +56,7 @@ export function ProductBrowser({
           className="w-full max-w-sm"
           onSubmit={(event) => {
             event.preventDefault();
-            patch({ keyword: keywordDraft.trim() || undefined, pageIndex: 0 });
+            patch({ keyword: keywordDraft.trim() || undefined, page: 1 });
           }}
         >
           <label htmlFor="product-search" className="sr-only">
@@ -117,13 +117,13 @@ export function ProductBrowser({
               </div>
 
               <PaginationBar
-                pageIndex={data.pagination.pageIndex}
+                page={data.pagination.page}
                 pageSize={data.pagination.pageSize}
                 totalPages={data.pagination.totalPages}
                 totalItems={data.pagination.totalItems}
-                onPageChange={(pageIndex) => patch({ pageIndex })}
+                onPageChange={(page) => patch({ page })}
                 onPageSizeChange={(pageSize) =>
-                  patch({ pageSize, pageIndex: 0 })
+                  patch({ pageSize, page: 1 })
                 }
               />
             </>

@@ -21,7 +21,7 @@ export function ProductPurchasePanel({ product }: { product: ProductDetail }) {
   const errorMessage = useApiErrorMessage();
   const locale = useLocale() as Locale;
   const router = useRouter();
-  const { isAuthenticated } = useSession();
+  const { isAuthenticated, isLoading: isSessionLoading } = useSession();
   const addToCart = useAddToCart();
 
   const skus = product.skus ?? [];
@@ -141,7 +141,7 @@ export function ProductPurchasePanel({ product }: { product: ProductDetail }) {
         <Button
           variant="cta"
           size="xl"
-          disabled={!sku || stock <= 0 || addToCart.isPending}
+          disabled={!sku || stock <= 0 || addToCart.isPending || isSessionLoading}
           onClick={() => void submit(false)}
         >
           <ShoppingCart aria-hidden="true" />
@@ -150,7 +150,7 @@ export function ProductPurchasePanel({ product }: { product: ProductDetail }) {
         <Button
           variant="outline"
           size="xl"
-          disabled={!sku || stock <= 0 || addToCart.isPending}
+          disabled={!sku || stock <= 0 || addToCart.isPending || isSessionLoading}
           onClick={() => void submit(true)}
         >
           {t("buyNow")}

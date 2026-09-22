@@ -75,7 +75,7 @@ export type ProductSortField =
 export type SortOrder = "asc" | "desc";
 
 export type ProductQuery = {
-  pageIndex?: number;
+  page?: number;
   pageSize?: number;
   order?: SortOrder;
   orderBy?: ProductSortField;
@@ -88,7 +88,7 @@ export type ProductQuery = {
 };
 
 export type PageQuery = {
-  pageIndex?: number;
+  page?: number;
   pageSize?: number;
   order?: SortOrder;
   orderBy?: string;

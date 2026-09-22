@@ -14,12 +14,12 @@ export function PermissionsAdmin() {
   const t = useTranslations("admin.permission");
   const tAdmin = useTranslations("admin");
 
-  const [pageIndex, setPageIndex] = useState(0);
+  const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(50);
   const [keyword, setKeyword] = useState("");
 
   const { data, isPending } = usePermissions({
-    pageIndex,
+    page,
     pageSize,
     keyword: keyword || undefined,
   });
@@ -54,7 +54,7 @@ export function PermissionsAdmin() {
       keyword={keyword}
       onKeywordChange={(value) => {
         setKeyword(value);
-        setPageIndex(0);
+        setPage(1);
       }}
     >
       <p className="text-sm text-muted-foreground">{t("readOnly")}</p>
@@ -67,14 +67,14 @@ export function PermissionsAdmin() {
 
       {data ? (
         <PaginationBar
-          pageIndex={data.pagination.pageIndex}
+          page={data.pagination.page}
           pageSize={data.pagination.pageSize}
           totalPages={data.pagination.totalPages}
           totalItems={data.pagination.totalItems}
-          onPageChange={setPageIndex}
+          onPageChange={setPage}
           onPageSizeChange={(size) => {
             setPageSize(size);
-            setPageIndex(0);
+            setPage(1);
           }}
         />
       ) : null}

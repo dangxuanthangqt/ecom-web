@@ -3,11 +3,11 @@
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 
+import { ButtonLink } from "@/components/common/button-link";
 import { NativeSelect } from "@/components/common/native-select";
 import { OrderStatusBadge } from "@/components/common/order-status-badge";
 import { PaginationBar } from "@/components/common/pagination-bar";
 import { EmptyState, RowsSkeleton } from "@/components/common/states";
-import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { useOrders } from "@/lib/api/hooks/use-orders";
@@ -20,12 +20,12 @@ export function OrderList() {
   const tStatus = useTranslations("orders.status");
   const locale = useLocale() as Locale;
 
-  const [pageIndex, setPageIndex] = useState(0);
+  const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [status, setStatus] = useState<OrderStatus | "">("");
 
   const { data, isPending } = useOrders({
-    pageIndex,
+    page,
     pageSize,
     orderBy: "createdAt",
     order: "desc",
@@ -45,7 +45,7 @@ export function OrderList() {
             placeholder={tCommon("all")}
             onChange={(event) => {
               setStatus(event.target.value as OrderStatus | "");
-              setPageIndex(0);
+              setPage(1);
             }}
             options={ORDER_STATUSES.map((value) => ({
               value,
@@ -61,9 +61,9 @@ export function OrderList() {
         <EmptyState
           title={t("empty")}
           action={
-            <Button variant="cta" render={<Link href="/products" />}>
+            <ButtonLink variant="cta" href="/products">
               {tCommon("view")}
-            </Button>
+            </ButtonLink>
           }
         />
       ) : null}
@@ -91,14 +91,14 @@ export function OrderList() {
 
       {data && data.pagination.totalItems > 0 ? (
         <PaginationBar
-          pageIndex={data.pagination.pageIndex}
+          page={data.pagination.page}
           pageSize={data.pagination.pageSize}
           totalPages={data.pagination.totalPages}
           totalItems={data.pagination.totalItems}
-          onPageChange={setPageIndex}
+          onPageChange={setPage}
           onPageSizeChange={(size) => {
             setPageSize(size);
-            setPageIndex(0);
+            setPage(1);
           }}
         />
       ) : null}

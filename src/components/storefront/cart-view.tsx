@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 
+import { ButtonLink } from "@/components/common/button-link";
 import { RemoteImage } from "@/components/common/remote-image";
 import { EmptyState, RowsSkeleton } from "@/components/common/states";
 import { Button } from "@/components/ui/button";
@@ -70,9 +71,9 @@ export function CartView() {
         <EmptyState
           title={t("empty")}
           action={
-            <Button variant="cta" render={<Link href="/products" />}>
+            <ButtonLink variant="cta" href="/products">
               {t("emptyCta")}
-            </Button>
+            </ButtonLink>
           }
         />
       </div>

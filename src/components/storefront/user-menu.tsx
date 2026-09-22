@@ -6,6 +6,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useState } from "react";
 
+import { ButtonLink } from "@/components/common/button-link";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -31,17 +32,17 @@ export function UserMenu() {
   if (!isAuthenticated || !profile) {
     return (
       <div className="flex items-center gap-2">
-        <Button variant="ghost" size="sm" render={<Link href="/login" />}>
+        <ButtonLink variant="ghost" size="sm" href="/login">
           {t("login")}
-        </Button>
-        <Button
+        </ButtonLink>
+        <ButtonLink
           variant="cta"
           size="sm"
           className="hidden sm:inline-flex"
-          render={<Link href="/register" />}
+          href="/register"
         >
           {t("register")}
-        </Button>
+        </ButtonLink>
       </div>
     );
   }

@@ -9,18 +9,18 @@ import { Button } from "@/components/ui/button";
 const PAGE_SIZES = [10, 20, 50, 100];
 
 export function PaginationBar({
-  pageIndex,
+  page,
   totalPages,
   pageSize,
   totalItems,
   onPageChange,
   onPageSizeChange,
 }: {
-  pageIndex: number;
+  page: number;
   totalPages: number;
   pageSize: number;
   totalItems: number;
-  onPageChange: (pageIndex: number) => void;
+  onPageChange: (page: number) => void;
   onPageSizeChange?: (pageSize: number) => void;
 }) {
   const t = useTranslations("admin.table");
@@ -29,7 +29,7 @@ export function PaginationBar({
   return (
     <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-3">
       <p className="text-sm text-muted-foreground">
-        {t("page", { current: pageIndex + 1, total: pages })} · {totalItems}
+        {t("page", { current: page, total: pages })} · {totalItems}
       </p>
 
       <div className="flex items-center gap-2">
@@ -52,8 +52,8 @@ export function PaginationBar({
           variant="outline"
           size="icon-sm"
           aria-label="Previous page"
-          disabled={pageIndex <= 0}
-          onClick={() => onPageChange(pageIndex - 1)}
+          disabled={page <= 1}
+          onClick={() => onPageChange(page - 1)}
         >
           <ChevronLeft aria-hidden="true" />
         </Button>
@@ -61,8 +61,8 @@ export function PaginationBar({
           variant="outline"
           size="icon-sm"
           aria-label="Next page"
-          disabled={pageIndex + 1 >= pages}
-          onClick={() => onPageChange(pageIndex + 1)}
+          disabled={page >= pages}
+          onClick={() => onPageChange(page + 1)}
         >
           <ChevronRight aria-hidden="true" />
         </Button>

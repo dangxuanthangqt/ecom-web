@@ -7,7 +7,7 @@ import type { ListResponse } from "../http";
 import { queryKeys } from "../query-keys";
 import type { CartItem, PageQuery } from "../types";
 
-const CART_PAGE = { pageIndex: 0, pageSize: 50 } satisfies PageQuery;
+const CART_PAGE = { page: 1, pageSize: 50 } satisfies PageQuery;
 
 export function useCart(query: PageQuery = CART_PAGE, enabled = true) {
   return useQuery({

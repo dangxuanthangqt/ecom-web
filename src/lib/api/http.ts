@@ -1,21 +1,28 @@
-export type ApiErrorDetail = {
-  field?: string;
-  message?: string;
-  [key: string]: unknown;
-};
+import type {
+  ApiErrorBody as DocumentedErrorBody,
+  ApiErrorCode,
+  ApiErrorDetail,
+} from "./types";
 
-/** Mirrors `ErrorResponseDto` — the only error body the API ever produces. */
-export type ApiErrorBody = {
-  statusCode: number;
-  error: string;
-  message: string;
+export type { ApiErrorCode, ApiErrorDetail };
+
+/**
+ * What a failed response actually parses to.
+ *
+ * The documented envelope, except `error` is widened and `details` made optional:
+ * a gateway, the proxy route or this fetch layer itself can answer with a body
+ * the API never published, and narrowing here would be a lie the compiler would
+ * then enforce. The literals survive the widening, so `error.code` still
+ * autocompletes to the published codes.
+ */
+export type ApiErrorBody = Omit<DocumentedErrorBody, "error" | "details"> & {
+  error: ApiErrorCode | (string & {});
   details?: ApiErrorDetail[];
-  requestId?: string;
 };
 
 export class ApiError extends Error {
   readonly statusCode: number;
-  readonly code: string;
+  readonly code: ApiErrorCode | (string & {});
   readonly details: ApiErrorDetail[];
   readonly requestId?: string;
 

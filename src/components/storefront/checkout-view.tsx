@@ -10,13 +10,13 @@ import { Link, useRouter } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { useCart } from "@/lib/api/hooks/use-cart";
 import { useCreateOrder } from "@/lib/api/hooks/use-orders";
-import { ApiError } from "@/lib/api/http";
+import { useApiErrorMessage } from "@/lib/api/use-error-toast";
 import { formatPrice } from "@/lib/format";
 
 export function CheckoutView({ cartItemIds }: { cartItemIds: string[] }) {
   const t = useTranslations("checkout");
   const tCart = useTranslations("cart");
-  const tCommon = useTranslations("common");
+  const errorMessage = useApiErrorMessage();
   const locale = useLocale() as Locale;
   const router = useRouter();
 
@@ -61,9 +61,7 @@ export function CheckoutView({ cartItemIds }: { cartItemIds: string[] }) {
       toast.success(t("placed"));
       router.push(`/orders/${order.id}`);
     } catch (error) {
-      toast.error(
-        error instanceof ApiError ? error.message : tCommon("unexpectedError"),
-      );
+      toast.error(errorMessage(error));
     }
   };
 

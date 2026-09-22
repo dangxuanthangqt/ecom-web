@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { useCancelOrder, useOrder } from "@/lib/api/hooks/use-orders";
-import { ApiError } from "@/lib/api/http";
+import { useApiErrorMessage } from "@/lib/api/use-error-toast";
 import { formatDate, formatPrice, shortId } from "@/lib/format";
 
 const CANCELLABLE = new Set(["PENDING_CONFIRMATION", "PENDING_PICKUP"]);
@@ -20,6 +20,7 @@ const CANCELLABLE = new Set(["PENDING_CONFIRMATION", "PENDING_PICKUP"]);
 export function OrderDetailView({ orderId }: { orderId: string }) {
   const t = useTranslations("orders");
   const tCommon = useTranslations("common");
+  const errorMessage = useApiErrorMessage();
   const locale = useLocale() as Locale;
 
   const { data, isPending, isError, refetch } = useOrder(orderId);
@@ -111,11 +112,7 @@ export function OrderDetailView({ orderId }: { orderId: string }) {
               await cancelOrder.mutateAsync(data.id);
               toast.success(t("cancelled"));
             } catch (error) {
-              toast.error(
-                error instanceof ApiError
-                  ? error.message
-                  : tCommon("unexpectedError"),
-              );
+              toast.error(errorMessage(error));
             }
           }}
           trigger={<Button variant="destructive">{t("cancel")}</Button>}

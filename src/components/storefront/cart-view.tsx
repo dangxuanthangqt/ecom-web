@@ -17,12 +17,12 @@ import {
   useRemoveCartItem,
   useUpdateCartItem,
 } from "@/lib/api/hooks/use-cart";
-import { ApiError } from "@/lib/api/http";
+import { useApiErrorMessage } from "@/lib/api/use-error-toast";
 import { formatPrice } from "@/lib/format";
 
 export function CartView() {
   const t = useTranslations("cart");
-  const tCommon = useTranslations("common");
+  const errorMessage = useApiErrorMessage();
   const locale = useLocale() as Locale;
   const router = useRouter();
 
@@ -52,9 +52,7 @@ export function CartView() {
     try {
       await updateItem.mutateAsync({ id, quantity });
     } catch (error) {
-      toast.error(
-        error instanceof ApiError ? error.message : tCommon("unexpectedError"),
-      );
+      toast.error(errorMessage(error));
     }
   };
 

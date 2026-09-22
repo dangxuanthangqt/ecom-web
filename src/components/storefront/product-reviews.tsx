@@ -20,12 +20,13 @@ import {
   useReviews,
   useSaveReview,
 } from "@/lib/api/hooks/use-reviews";
-import { ApiError } from "@/lib/api/http";
+import { useApiErrorMessage } from "@/lib/api/use-error-toast";
 import { formatDate } from "@/lib/format";
 
 export function ProductReviews({ productId }: { productId: string }) {
   const t = useTranslations("reviews");
   const tCommon = useTranslations("common");
+  const errorMessage = useApiErrorMessage();
   const locale = useLocale() as Locale;
   const { profile, isAuthenticated } = useSession();
 
@@ -70,9 +71,7 @@ export function ProductReviews({ productId }: { productId: string }) {
       toast.success(t("posted"));
       reset();
     } catch (error) {
-      toast.error(
-        error instanceof ApiError ? error.message : tCommon("unexpectedError"),
-      );
+      toast.error(errorMessage(error));
     }
   };
 

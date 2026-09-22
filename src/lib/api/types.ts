@@ -2,6 +2,14 @@ import type { components } from "./schema";
 
 type Schemas = components["schemas"];
 
+/**
+ * The error envelope, straight from the generated schema. `ApiErrorCode` is the
+ * union the API publishes; a `switch` over it is what the codes exist for.
+ */
+export type ApiErrorBody = Schemas["ErrorResponseDto"];
+export type ApiErrorDetail = Schemas["ErrorDetailDto"];
+export type ApiErrorCode = ApiErrorBody["error"];
+
 export type Product = Schemas["ProductResponseDto"];
 export type ProductDetail = Schemas["ProductDetailResponseDto"];
 export type ProductTranslation = Schemas["ProductTranslationResponseDto"];

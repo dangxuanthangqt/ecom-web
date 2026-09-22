@@ -11,14 +11,14 @@ import { Label } from "@/components/ui/label";
 import { useRouter } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { useAddToCart } from "@/lib/api/hooks/use-cart";
-import { ApiError } from "@/lib/api/http";
 import type { ProductDetail } from "@/lib/api/types";
+import { useApiErrorMessage } from "@/lib/api/use-error-toast";
 import { formatPrice } from "@/lib/format";
 import { cn } from "cn";
 
 export function ProductPurchasePanel({ product }: { product: ProductDetail }) {
   const t = useTranslations("products");
-  const tCommon = useTranslations("common");
+  const errorMessage = useApiErrorMessage();
   const locale = useLocale() as Locale;
   const router = useRouter();
   const { isAuthenticated } = useSession();
@@ -48,9 +48,7 @@ export function ProductPurchasePanel({ product }: { product: ProductDetail }) {
 
       if (thenCheckout) router.push("/cart");
     } catch (error) {
-      toast.error(
-        error instanceof ApiError ? error.message : tCommon("unexpectedError"),
-      );
+      toast.error(errorMessage(error));
     }
   };
 

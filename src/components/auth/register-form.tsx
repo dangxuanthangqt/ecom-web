@@ -11,11 +11,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link, useRouter } from "@/i18n/navigation";
 import { apiClient } from "@/lib/api/client";
-import { ApiError } from "@/lib/api/http";
+import {
+  useApiErrorMessage,
+  useApiFieldErrors,
+} from "@/lib/api/use-error-toast";
 
 export function RegisterForm() {
   const t = useTranslations("auth");
-  const tCommon = useTranslations("common");
+  const errorMessage = useApiErrorMessage();
+  const fieldErrors = useApiFieldErrors();
   const router = useRouter();
 
   const [form, setForm] = useState({
@@ -52,12 +56,8 @@ export function RegisterForm() {
       toast.success(t("registered"));
       router.push("/login");
     } catch (error) {
-      if (error instanceof ApiError) {
-        setErrors(error.fieldErrors);
-        toast.error(error.message);
-      } else {
-        toast.error(tCommon("unexpectedError"));
-      }
+      setErrors(fieldErrors(error));
+      toast.error(errorMessage(error));
     } finally {
       setPending(false);
     }

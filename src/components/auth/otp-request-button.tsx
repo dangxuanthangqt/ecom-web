@@ -5,7 +5,7 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { useSendOtp } from "@/lib/api/hooks/use-account";
-import { ApiError } from "@/lib/api/http";
+import { useApiErrorMessage } from "@/lib/api/use-error-toast";
 
 /**
  * Register and password reset both need a code mailed out first. The button
@@ -19,7 +19,7 @@ export function OtpRequestButton({
   type: "REGISTER" | "FORGOT_PASSWORD" | "LOGIN" | "DISABLE_2FA";
 }) {
   const t = useTranslations("auth");
-  const tCommon = useTranslations("common");
+  const errorMessage = useApiErrorMessage();
   const sendOtp = useSendOtp();
 
   return (
@@ -32,11 +32,7 @@ export function OtpRequestButton({
           await sendOtp.mutateAsync({ email, type });
           toast.success(t("otpSent"));
         } catch (error) {
-          toast.error(
-            error instanceof ApiError
-              ? error.message
-              : tCommon("unexpectedError"),
-          );
+          toast.error(errorMessage(error));
         }
       }}
     >

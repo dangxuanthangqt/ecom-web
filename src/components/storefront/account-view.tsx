@@ -15,12 +15,16 @@ import {
   useChangePassword,
   useUpdateProfile,
 } from "@/lib/api/hooks/use-account";
-import { ApiError } from "@/lib/api/http";
+import {
+  useApiErrorMessage,
+  useApiFieldErrors,
+} from "@/lib/api/use-error-toast";
 
 export function AccountView() {
   const t = useTranslations("account");
   const tAuth = useTranslations("auth");
-  const tCommon = useTranslations("common");
+  const errorMessage = useApiErrorMessage();
+  const fieldErrors = useApiFieldErrors();
   const { profile, isLoading } = useSession();
 
   const updateProfile = useUpdateProfile();
@@ -62,12 +66,8 @@ export function AccountView() {
       });
       toast.success(t("profileUpdated"));
     } catch (error) {
-      if (error instanceof ApiError) {
-        setProfileErrors(error.fieldErrors);
-        toast.error(error.message);
-      } else {
-        toast.error(tCommon("unexpectedError"));
-      }
+      setProfileErrors(fieldErrors(error));
+      toast.error(errorMessage(error));
     }
   };
 
@@ -94,12 +94,8 @@ export function AccountView() {
       toast.success(t("passwordChanged"));
       (event.target as HTMLFormElement).reset();
     } catch (error) {
-      if (error instanceof ApiError) {
-        setPasswordErrors(error.fieldErrors);
-        toast.error(error.message);
-      } else {
-        toast.error(tCommon("unexpectedError"));
-      }
+      setPasswordErrors(fieldErrors(error));
+      toast.error(errorMessage(error));
     }
   };
 

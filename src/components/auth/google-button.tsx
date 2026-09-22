@@ -6,11 +6,11 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { apiClient } from "@/lib/api/client";
-import { ApiError } from "@/lib/api/http";
+import { useApiErrorMessage } from "@/lib/api/use-error-toast";
 
 export function GoogleButton() {
   const t = useTranslations("auth");
-  const tCommon = useTranslations("common");
+  const errorMessage = useApiErrorMessage();
   const [pending, setPending] = useState(false);
 
   const start = async () => {
@@ -24,9 +24,7 @@ export function GoogleButton() {
       window.location.href = url;
     } catch (error) {
       setPending(false);
-      toast.error(
-        error instanceof ApiError ? error.message : tCommon("unexpectedError"),
-      );
+      toast.error(errorMessage(error));
     }
   };
 

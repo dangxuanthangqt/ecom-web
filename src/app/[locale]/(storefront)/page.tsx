@@ -30,12 +30,12 @@ export default async function HomePage({
   // page renders for signed-out visitors too.
   const [products, brands] = await Promise.all([
     apiServer<ListResponse<Product>>("/products", {
-      query: { pageIndex: 0, pageSize: 8, orderBy: "createdAt", order: "desc" },
+      query: { page: 1, pageSize: 8, orderBy: "createdAt", order: "desc" },
       revalidate: 60,
       tags: ["products"],
     }).catch(() => null),
     apiServer<ListResponse<BrandWithTranslations>>("/brands", {
-      query: { pageIndex: 0, pageSize: 12 },
+      query: { page: 1, pageSize: 12 },
       revalidate: 300,
       tags: ["brands"],
     }).catch(() => null),

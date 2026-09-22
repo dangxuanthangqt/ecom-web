@@ -10,14 +10,14 @@ export function ListPagination<T>({
   onPageSizeChange,
 }: {
   data?: ListResponse<T>;
-  onPageChange: (pageIndex: number) => void;
+  onPageChange: (page: number) => void;
   onPageSizeChange: (pageSize: number) => void;
 }) {
   if (!data) return null;
 
   return (
     <PaginationBar
-      pageIndex={data.pagination.pageIndex}
+      page={data.pagination.page}
       pageSize={data.pagination.pageSize}
       totalPages={data.pagination.totalPages}
       totalItems={data.pagination.totalItems}

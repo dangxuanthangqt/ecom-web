@@ -35,7 +35,7 @@ export function ProductFilters({
 }) {
   const t = useTranslations("products");
   const { profile } = useSession();
-  const { data: brands } = useBrands({ pageIndex: 0, pageSize: 100 });
+  const { data: brands } = useBrands({ page: 1, pageSize: 100 });
   // `/categories` needs `category:read:any` on this API — a plain shopper gets
   // a 403 — so the filter is gated on the permission, not on merely being
   // signed in, and the request only fires for someone who may make it.
@@ -50,7 +50,7 @@ export function ProductFilters({
       [key]: current.includes(id)
         ? current.filter((item) => item !== id)
         : [...current, id],
-      pageIndex: 0,
+      page: 1,
     });
   };
 
@@ -77,7 +77,7 @@ export function ProductFilters({
             onChange={(event) =>
               onChange({
                 orderBy: event.target.value as ProductSortField,
-                pageIndex: 0,
+                page: 1,
               })
             }
             options={SORT_FIELDS.map((field) => ({
@@ -91,7 +91,7 @@ export function ProductFilters({
             onChange={(event) =>
               onChange({
                 order: event.target.value as SortOrder,
-                pageIndex: 0,
+                page: 1,
               })
             }
             options={[
@@ -116,7 +116,7 @@ export function ProductFilters({
                   minPrice: event.target.value
                     ? Number(event.target.value)
                     : undefined,
-                  pageIndex: 0,
+                  page: 1,
                 })
               }
             />
@@ -135,7 +135,7 @@ export function ProductFilters({
                   maxPrice: event.target.value
                     ? Number(event.target.value)
                     : undefined,
-                  pageIndex: 0,
+                  page: 1,
                 })
               }
             />

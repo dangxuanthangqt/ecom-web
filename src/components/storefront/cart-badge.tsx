@@ -12,7 +12,7 @@ export function CartBadge() {
   const t = useTranslations("nav");
   const { isAuthenticated } = useSession();
   // Anonymous visitors have no cart to fetch — asking would just 401.
-  const { data } = useCart({ pageIndex: 0, pageSize: 50 }, isAuthenticated);
+  const { data } = useCart({ page: 1, pageSize: 50 }, isAuthenticated);
 
   const count = data?.data.length ?? 0;
 

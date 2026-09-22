@@ -56,7 +56,7 @@ giá gạch. Cả thẻ là một link tới `/products/[id]`.
 · server page đọc `searchParams` rồi giao cho client component · công khai.
 
 **Query khởi tạo** lấy từ URL: `keyword`, `brandIds`, `categoryIds` (chấp nhận
-lặp tham số). Mặc định `pageIndex 0`, `pageSize 20`, `orderBy createdAt`, `order desc`.
+lặp tham số). Mặc định `page 1`, `pageSize 20`, `orderBy createdAt`, `order desc`.
 
 **Dữ liệu** `useProducts(query)` → `GET /products`.
 
@@ -72,7 +72,7 @@ lặp tham số). Mặc định `pageIndex 0`, `pageSize 20`, `orderBy createdAt
 | Danh mục | checkbox — **chỉ hiện khi đã đăng nhập**, vì `GET /categories` cần auth |
 | Xóa lọc | đưa về query mặc định và xóa ô tìm kiếm |
 
-Mọi thay đổi bộ lọc đều đặt lại `pageIndex: 0`.
+Mọi thay đổi bộ lọc đều đặt lại `page: 1`.
 
 **Bên phải** — tiêu đề kèm tổng số kết quả, ô tìm kiếm riêng (submit mới áp
 dụng, không gõ tới đâu gọi tới đó), lưới `ProductCard`, `PaginationBar` (đổi
@@ -132,7 +132,7 @@ tiêu đề tab theo tên sản phẩm.
 **File** `(storefront)/cart/page.tsx` → `components/storefront/cart-view.tsx`
 · **cần đăng nhập** (middleware chặn).
 
-**Dữ liệu** `GET /cart?pageIndex=0&pageSize=50`.
+**Dữ liệu** `GET /cart?page=1&pageSize=50`.
 
 **Trái** — checkbox *Chọn tất cả*, rồi danh sách dòng hàng. Mỗi dòng: checkbox,
 ảnh SKU, tên sản phẩm (link về chi tiết), giá trị SKU, đơn giá, cụm −/số lượng/+,

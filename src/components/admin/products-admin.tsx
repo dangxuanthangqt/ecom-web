@@ -36,7 +36,7 @@ export function ProductsAdmin() {
   const tCommon = useTranslations("common");
   const locale = useLocale() as Locale;
 
-  const [pageIndex, setPageIndex] = useState(0);
+  const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
   const [keyword, setKeyword] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -44,12 +44,12 @@ export function ProductsAdmin() {
   const [draft, setDraft] = useState(EMPTY_DRAFT);
 
   const { data, isPending } = useManagedProducts({
-    pageIndex,
+    page,
     pageSize,
     keyword: keyword || undefined,
   });
   const { data: editing } = useManagedProduct(editingId ?? undefined);
-  const { data: brands } = useBrands({ pageIndex: 0, pageSize: 100 });
+  const { data: brands } = useBrands({ page: 1, pageSize: 100 });
   const { data: categories } = useCategories();
 
   const saveProduct = useSaveProduct();
@@ -183,7 +183,7 @@ export function ProductsAdmin() {
       keyword={keyword}
       onKeywordChange={(value) => {
         setKeyword(value);
-        setPageIndex(0);
+        setPage(1);
       }}
       action={
         <Button variant="cta" onClick={() => openDialog()}>
@@ -200,14 +200,14 @@ export function ProductsAdmin() {
 
       {data ? (
         <PaginationBar
-          pageIndex={data.pagination.pageIndex}
+          page={data.pagination.page}
           pageSize={data.pagination.pageSize}
           totalPages={data.pagination.totalPages}
           totalItems={data.pagination.totalItems}
-          onPageChange={setPageIndex}
+          onPageChange={setPage}
           onPageSizeChange={(size) => {
             setPageSize(size);
-            setPageIndex(0);
+            setPage(1);
           }}
         />
       ) : null}

@@ -33,18 +33,18 @@ export function UsersAdmin() {
   const tAuth = useTranslations("auth");
   const tCommon = useTranslations("common");
 
-  const [pageIndex, setPageIndex] = useState(0);
+  const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
   const [keyword, setKeyword] = useState("");
   const [editing, setEditing] = useState<UserItem | null>(null);
   const [open, setOpen] = useState(false);
 
   const { data, isPending } = useUsers({
-    pageIndex,
+    page,
     pageSize,
     keyword: keyword || undefined,
   });
-  const { data: roles } = useRoles({ pageIndex: 0, pageSize: 100 });
+  const { data: roles } = useRoles({ page: 1, pageSize: 100 });
   const saveUser = useSaveUser();
   const deleteUser = useDeleteUser();
   const { errors, report, reset } = useApiErrors();
@@ -124,7 +124,7 @@ export function UsersAdmin() {
       keyword={keyword}
       onKeywordChange={(value) => {
         setKeyword(value);
-        setPageIndex(0);
+        setPage(1);
       }}
       action={
         <Button
@@ -147,14 +147,14 @@ export function UsersAdmin() {
 
       {data ? (
         <PaginationBar
-          pageIndex={data.pagination.pageIndex}
+          page={data.pagination.page}
           pageSize={data.pagination.pageSize}
           totalPages={data.pagination.totalPages}
           totalItems={data.pagination.totalItems}
-          onPageChange={setPageIndex}
+          onPageChange={setPage}
           onPageSizeChange={(size) => {
             setPageSize(size);
-            setPageIndex(0);
+            setPage(1);
           }}
         />
       ) : null}

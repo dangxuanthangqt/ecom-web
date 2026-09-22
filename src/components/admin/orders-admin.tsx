@@ -36,14 +36,14 @@ export function OrdersAdmin() {
   const tCommon = useTranslations("common");
   const locale = useLocale() as Locale;
 
-  const [pageIndex, setPageIndex] = useState(0);
+  const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
   const [keyword, setKeyword] = useState("");
   const [status, setStatus] = useState<OrderStatus | "">("");
   const [detailId, setDetailId] = useState<string | null>(null);
 
   const { data, isPending } = useManagedOrders({
-    pageIndex,
+    page,
     pageSize,
     keyword: keyword || undefined,
     orderBy: "createdAt",
@@ -114,7 +114,7 @@ export function OrdersAdmin() {
       keyword={keyword}
       onKeywordChange={(value) => {
         setKeyword(value);
-        setPageIndex(0);
+        setPage(1);
       }}
       action={
         <label className="flex items-center gap-2 text-sm">
@@ -125,7 +125,7 @@ export function OrdersAdmin() {
             placeholder={tCommon("all")}
             onChange={(event) => {
               setStatus(event.target.value as OrderStatus | "");
-              setPageIndex(0);
+              setPage(1);
             }}
             options={ORDER_STATUSES.map((value) => ({
               value,
@@ -143,14 +143,14 @@ export function OrdersAdmin() {
 
       {data ? (
         <PaginationBar
-          pageIndex={data.pagination.pageIndex}
+          page={data.pagination.page}
           pageSize={data.pagination.pageSize}
           totalPages={data.pagination.totalPages}
           totalItems={data.pagination.totalItems}
-          onPageChange={setPageIndex}
+          onPageChange={setPage}
           onPageSizeChange={(size) => {
             setPageSize(size);
-            setPageIndex(0);
+            setPage(1);
           }}
         />
       ) : null}

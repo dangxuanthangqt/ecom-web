@@ -20,12 +20,12 @@ export function OrderList() {
   const tStatus = useTranslations("orders.status");
   const locale = useLocale() as Locale;
 
-  const [pageIndex, setPageIndex] = useState(0);
+  const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [status, setStatus] = useState<OrderStatus | "">("");
 
   const { data, isPending } = useOrders({
-    pageIndex,
+    page,
     pageSize,
     orderBy: "createdAt",
     order: "desc",
@@ -45,7 +45,7 @@ export function OrderList() {
             placeholder={tCommon("all")}
             onChange={(event) => {
               setStatus(event.target.value as OrderStatus | "");
-              setPageIndex(0);
+              setPage(1);
             }}
             options={ORDER_STATUSES.map((value) => ({
               value,
@@ -91,14 +91,14 @@ export function OrderList() {
 
       {data && data.pagination.totalItems > 0 ? (
         <PaginationBar
-          pageIndex={data.pagination.pageIndex}
+          page={data.pagination.page}
           pageSize={data.pagination.pageSize}
           totalPages={data.pagination.totalPages}
           totalItems={data.pagination.totalItems}
-          onPageChange={setPageIndex}
+          onPageChange={setPage}
           onPageSizeChange={(size) => {
             setPageSize(size);
-            setPageIndex(0);
+            setPage(1);
           }}
         />
       ) : null}

@@ -34,7 +34,7 @@ export function RolesAdmin() {
   const tAdmin = useTranslations("admin");
   const tCommon = useTranslations("common");
 
-  const [pageIndex, setPageIndex] = useState(0);
+  const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
   const [keyword, setKeyword] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -43,14 +43,14 @@ export function RolesAdmin() {
   const [isActive, setIsActive] = useState(true);
 
   const { data, isPending } = useRoles({
-    pageIndex,
+    page,
     pageSize,
     keyword: keyword || undefined,
   });
   // The list endpoint returns roles without their permissions, so the dialog
   // fetches the full record before it can pre-tick the boxes.
   const { data: editing } = useRole(editingId ?? undefined);
-  const { data: permissions } = usePermissions({ pageIndex: 0, pageSize: 200 });
+  const { data: permissions } = usePermissions({ page: 1, pageSize: 200 });
   const saveRole = useSaveRole();
   const deleteRole = useDeleteRole();
   const { errors, report, reset } = useApiErrors();
@@ -142,7 +142,7 @@ export function RolesAdmin() {
       keyword={keyword}
       onKeywordChange={(value) => {
         setKeyword(value);
-        setPageIndex(0);
+        setPage(1);
       }}
       action={
         <Button variant="cta" onClick={() => openDialog()}>
@@ -159,14 +159,14 @@ export function RolesAdmin() {
 
       {data ? (
         <PaginationBar
-          pageIndex={data.pagination.pageIndex}
+          page={data.pagination.page}
           pageSize={data.pagination.pageSize}
           totalPages={data.pagination.totalPages}
           totalItems={data.pagination.totalItems}
-          onPageChange={setPageIndex}
+          onPageChange={setPage}
           onPageSizeChange={(size) => {
             setPageSize(size);
-            setPageIndex(0);
+            setPage(1);
           }}
         />
       ) : null}

@@ -113,8 +113,8 @@ Cả hai dùng chung `lib/api/http.ts`:
   có getter `fieldErrors` biến `details[]` thành `{ email: "Email đã tồn tại" }`
   để gắn thẳng vào form.
 - `ListResponse<T>` — envelope danh sách của backend:
-  `{ data: T[], pagination: { pageIndex, pageSize, totalPages, totalItems } }`.
-  **`pageIndex` đếm từ 0.**
+  `{ data: T[], pagination: { page, pageSize, totalPages, totalItems } }`.
+  **`page` đếm từ 1.**
 
 ## 2.6 Data layer — TanStack Query
 

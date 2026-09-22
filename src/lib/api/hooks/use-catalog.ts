@@ -13,7 +13,7 @@ import type {
   PageQuery,
 } from "../types";
 
-const ALL = { pageSize: 100, pageIndex: 0 } satisfies PageQuery;
+const ALL = { pageSize: 100, page: 1 } satisfies PageQuery;
 
 export function useBrands(query: PageQuery = ALL) {
   return useQuery({

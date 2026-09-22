@@ -1188,10 +1188,10 @@ export type components = {
              */
             pageSize: number;
             /**
-             * @description Current page index (starts from 0)
-             * @example 0
+             * @description Current page number (starts from 1)
+             * @example 1
              */
-            pageIndex: number;
+            page: number;
         };
         PageDto: {
             pagination: components["schemas"]["PaginationResponseDto"];
@@ -2403,7 +2403,7 @@ export type components = {
             /**
              * Format: date-time
              * @description The date when the product will be published
-             * @default 2026-09-22T04:22:49.678Z
+             * @default 2026-09-22T09:17:21.930Z
              * @example 2023-10-01T00:00:00Z
              */
             publishedAt: string;
@@ -2454,7 +2454,7 @@ export type components = {
             /**
              * Format: date-time
              * @description The date when the product will be published
-             * @default 2026-09-22T04:22:49.678Z
+             * @default 2026-09-22T09:17:21.930Z
              * @example 2023-10-01T00:00:00Z
              */
             publishedAt: string;
@@ -3771,8 +3771,8 @@ export interface operations {
             query?: {
                 /** @description Number of items per page */
                 pageSize?: number;
-                /** @description Page index (starts from 0) */
-                pageIndex?: number;
+                /** @description Page number (starts from 1) */
+                page?: number;
                 /** @description Sort order */
                 order?: "asc" | "desc";
                 /** @description Field to order by */
@@ -4348,8 +4348,8 @@ export interface operations {
             query?: {
                 /** @description Number of items per page */
                 pageSize?: number;
-                /** @description Page index (starts from 0) */
-                pageIndex?: number;
+                /** @description Page number (starts from 1) */
+                page?: number;
                 /** @description Sort order */
                 order?: "asc" | "desc";
                 /** @description Field to order by */
@@ -4518,8 +4518,8 @@ export interface operations {
             query?: {
                 /** @description Number of items per page */
                 pageSize?: number;
-                /** @description Page index (starts from 0) */
-                pageIndex?: number;
+                /** @description Page number (starts from 1) */
+                page?: number;
                 /** @description Sort order */
                 order?: "asc" | "desc";
                 /** @description Field to order by */
@@ -5500,8 +5500,8 @@ export interface operations {
             query?: {
                 /** @description Number of items per page */
                 pageSize?: number;
-                /** @description Page index (starts from 0) */
-                pageIndex?: number;
+                /** @description Page number (starts from 1) */
+                page?: number;
                 /** @description Sort order */
                 order?: "asc" | "desc";
                 /** @description Field to order by */
@@ -6740,8 +6740,8 @@ export interface operations {
             query?: {
                 /** @description Number of items per page */
                 pageSize?: number;
-                /** @description Page index (starts from 0) */
-                pageIndex?: number;
+                /** @description Page number (starts from 1) */
+                page?: number;
                 /** @description Sort order */
                 order?: "asc" | "desc";
                 /** @description Field to order by */
@@ -7052,8 +7052,8 @@ export interface operations {
             query?: {
                 /** @description Number of items per page */
                 pageSize?: number;
-                /** @description Page index (starts from 0) */
-                pageIndex?: number;
+                /** @description Page number (starts from 1) */
+                page?: number;
                 /** @description Sort order */
                 order?: "asc" | "desc";
                 /** @description Field to order by */
@@ -8302,8 +8302,8 @@ export interface operations {
             query?: {
                 /** @description Number of items per page */
                 pageSize?: number;
-                /** @description Page index (starts from 0) */
-                pageIndex?: number;
+                /** @description Page number (starts from 1) */
+                page?: number;
                 /** @description Sort order */
                 order?: "asc" | "desc";
                 /** @description Field to order by */
@@ -8876,8 +8876,8 @@ export interface operations {
             query?: {
                 /** @description Number of items per page */
                 pageSize?: number;
-                /** @description Page index (starts from 0) */
-                pageIndex?: number;
+                /** @description Page number (starts from 1) */
+                page?: number;
                 /** @description Sort order */
                 order?: "asc" | "desc";
                 /** @description Field to order by */
@@ -9032,8 +9032,8 @@ export interface operations {
                 isPublic?: boolean;
                 /** @description Number of items per page */
                 pageSize?: number;
-                /** @description Page index (starts from 0) */
-                pageIndex?: number;
+                /** @description Page number (starts from 1) */
+                page?: number;
                 /** @description Sort order */
                 order?: "asc" | "desc";
                 /** @description Search keyword */
@@ -9604,8 +9604,8 @@ export interface operations {
             query?: {
                 /** @description Number of items per page */
                 pageSize?: number;
-                /** @description Page index (starts from 0) */
-                pageIndex?: number;
+                /** @description Page number (starts from 1) */
+                page?: number;
                 /** @description Sort order */
                 order?: "asc" | "desc";
                 /** @description Field to order by */
@@ -10181,8 +10181,8 @@ export interface operations {
             query?: {
                 /** @description Number of items per page */
                 pageSize?: number;
-                /** @description Page index (starts from 0) */
-                pageIndex?: number;
+                /** @description Page number (starts from 1) */
+                page?: number;
                 /** @description Sort order */
                 order?: "asc" | "desc";
                 /** @description Field to order by */
@@ -10624,8 +10624,8 @@ export interface operations {
             query?: {
                 /** @description Number of items per page */
                 pageSize?: number;
-                /** @description Page index (starts from 0) */
-                pageIndex?: number;
+                /** @description Page number (starts from 1) */
+                page?: number;
                 /** @description Sort order */
                 order?: "asc" | "desc";
                 /** @description Field to order by */
@@ -11069,8 +11069,8 @@ export interface operations {
                 createdById?: string;
                 /** @description Number of items per page */
                 pageSize?: number;
-                /** @description Page index (starts from 0) */
-                pageIndex?: number;
+                /** @description Page number (starts from 1) */
+                page?: number;
                 /** @description Sort order */
                 order?: "asc" | "desc";
                 /** @description Field to order by */
@@ -11377,8 +11377,8 @@ export interface operations {
             query: {
                 /** @description Number of items per page */
                 pageSize?: number;
-                /** @description Page index (starts from 0) */
-                pageIndex?: number;
+                /** @description Page number (starts from 1) */
+                page?: number;
                 /** @description Sort order */
                 order?: "asc" | "desc";
                 /** @description Field to order by */

@@ -30,13 +30,13 @@ export function ProductReviews({ productId }: { productId: string }) {
   const locale = useLocale() as Locale;
   const { profile, isAuthenticated } = useSession();
 
-  const [pageIndex, setPageIndex] = useState(0);
+  const [page, setPage] = useState(1);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [rating, setRating] = useState("5");
   const [content, setContent] = useState("");
 
   const { data, isPending } = useReviews(productId, {
-    pageIndex,
+    page,
     pageSize: 10,
     orderBy: "createdAt",
     order: "desc",
@@ -215,16 +215,16 @@ export function ProductReviews({ productId }: { productId: string }) {
           <Button
             variant="outline"
             size="sm"
-            disabled={pageIndex <= 0}
-            onClick={() => setPageIndex((value) => value - 1)}
+            disabled={page <= 1}
+            onClick={() => setPage((value) => value - 1)}
           >
             {tCommon("back")}
           </Button>
           <Button
             variant="outline"
             size="sm"
-            disabled={pageIndex + 1 >= data.pagination.totalPages}
-            onClick={() => setPageIndex((value) => value + 1)}
+            disabled={page >= data.pagination.totalPages}
+            onClick={() => setPage((value) => value + 1)}
           >
             {tCommon("view")}
           </Button>

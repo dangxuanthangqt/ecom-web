@@ -116,6 +116,6 @@ export type ListResponse<T> = {
     totalPages: number;
     totalItems: number;
     pageSize: number;
-    pageIndex: number;
+    page: number;
   };
 };

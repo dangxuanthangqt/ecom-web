@@ -11,6 +11,13 @@ async function placeOrderAsShopper(page: import("@playwright/test").Page) {
   await page.goto("/vi/cart");
   await page.getByRole("checkbox", { name: "Chọn tất cả" }).check();
   await page.getByRole("button", { name: "Đặt hàng" }).click();
+
+  // Cart and checkout label their button the same, so wait for the page to
+  // actually change before clicking again — otherwise the second click can
+  // land back on the cart's button and the order never gets placed.
+  await expect(page).toHaveURL(/\/vi\/checkout\?ids=/);
+  await expect(page.getByRole("heading", { name: "Tóm tắt đơn" })).toBeVisible();
+
   await page.getByRole("button", { name: "Đặt hàng" }).click();
   await expect(page).toHaveURL(/\/vi\/orders\/order-/);
 
